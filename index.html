@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="ru">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DES Detective — Семь минут темноты</title><link rel="stylesheet" href="style.css"><script src="restorer-policy.js" defer></script><script src="director-policy.js" defer></script><script src="game.js" defer></script><script src="report.js" defer></script><script src="questions.js" defer></script><script src="transfer.js" defer></script></head>
+<body>
+<main>
+<header><span class="brand">DES DETECTIVE</span><h1>Семь минут темноты</h1><span id="room-name"></span></header>
+<div class="stage" id="stage"><img id="scene" alt=""><div id="hotspots"></div><div id="hover" aria-hidden="true"></div><div id="blackout" hidden><p>19:00</p><h2>Свет погас.</h2><p>В коридоре тускло светятся эвакуационные указатели.<br>В зале слышны голоса и чьи-то осторожные шаги.</p><button id="restore-light">Семь минут спустя →</button></div></div>
+<nav id="passages" aria-label="Дополнительные проходы"></nav>
+<footer><p id="status" role="status">До показа ещё есть время. Осмотритесь в музее.</p><div class="footer-actions"><button id="incident">К началу показа →</button><button id="report" hidden>Заключение</button><button id="notebook">Блокнот · 0</button><button id="help">Показать объекты</button><button id="transfer">Перенос сохранения</button><button id="new-game">Новая игра</button></div></footer>
+<p id="save-status" class="note" role="status"></p>
+<p class="note" id="chapter">До происшествия · нажимай на предметы и персонажей · Tab — выбор объекта</p>
+</main>
+<dialog id="panel" aria-labelledby="panel-title"><button class="close" aria-label="Закрыть окно">×</button><p class="eyebrow" id="panel-kind"></p><h2 id="panel-title"></h2><div id="panel-body" aria-live="polite"></div><div id="question-box" hidden></div><div id="actions"></div></dialog>
+</body></html>
