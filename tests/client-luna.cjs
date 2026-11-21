@@ -17,11 +17,11 @@ function setup(reply){
  const document={activeElement:new E(),getElementById:id=>elements[id]??=new E(),createElement:()=>new E(),createTextNode:text=>({textContent:text})};
  const localStorage={getItem:()=>null,setItem(){},removeItem(){}};
  const fetch=async(url,options)=>{
-  if(url==='/api/status')return {ok:true,json:async()=>({enabled:true,characters:['restorer','director']})};
+  if(url==='/api/status')return {ok:true,json:async()=>({enabled:true,characters:['restorer','director','guard','historian']})};
   const body=JSON.parse(options.body);requests.push(body);return {ok:true,json:async()=>typeof reply==='function'?reply(body):reply};
  };
  const ctx=vm.createContext({document,localStorage,location:{protocol:'http:'},fetch,AbortSignal});
- for(const name of ['restorer-policy.js','director-policy.js','game.js','questions.js'])vm.runInContext(fs.readFileSync(path.join(__dirname,'..',name),'utf8'),ctx);
+ for(const name of ['restorer-policy.js','director-policy.js','guard-policy.js','historian-policy.js','game.js','questions.js'])vm.runInContext(fs.readFileSync(path.join(__dirname,'..',name),'utf8'),ctx);
  const run=code=>vm.runInContext(code,ctx);
  async function ask(text,person='restorer'){
   run(`talk('${person}')`);await new Promise(setImmediate);
@@ -70,4 +70,33 @@ test('director awareness can only be committed after both independent checks',as
  await t.ask('Вот документы, вы знали?','director');assert.equal(t.run("notebook.statements.has('director:evidence:awareness')"),true);
  assert.equal(t.elements['panel-body'].textContent,'Я подписал акт, хотя получил предупреждение.');
  assert.equal(t.run("notebook.statements.has('director:evidence:early-removal')"),false);
+});
+test('all four characters answer with separate memories',async()=>{
+ const t=setup(body=>({reply:'Ответ персонажа '+body.person,facts:[]}));
+ for(const person of ['restorer','director','guard','historian']){
+  await t.ask('Первый вопрос '+person,person);
+  assert.equal(t.elements['panel-body'].textContent,'Ответ персонажа '+person);
+  assert.equal(t.requests.at(-1).person,person);assert.equal(t.requests.at(-1).history.length,0);
+ }
+ for(const person of ['historian','guard','director','restorer']){
+  await t.ask('Второй вопрос',person);
+  assert.equal(t.requests.at(-1).history.length,2);assert.equal(t.requests.at(-1).history[0].text,'Первый вопрос '+person);
+ }
+});
+test('guard confession is blocked until the full equipment chain and then persists',async()=>{
+ const t=setup({reply:'Я выключил питание, чтобы вернуть аккумулятор.',facts:['outage']});t.run("phase='investigation';enterRoom('security')");
+ await t.ask('Признавайся, зачем выключил свет?','guard');assert.equal(t.run('notebook.statements.has(guardConfessionKey)'),false);
+ t.run("for(const id of ['E11','E12','E13','E14'])readTechnical(id);compareBattery()");
+ await t.ask('Вот запись и следы возвращения блока. Зачем отключение?','guard');
+ assert.equal(t.run('notebook.statements.has(guardConfessionKey)'),true);
+ assert.equal(t.elements['panel-body'].textContent,'Я выключил питание, чтобы вернуть аккумулятор.');
+ t.run("talk('guard')");assert.ok(t.elements['panel-body'].textContent.startsWith('Отключение устроил я'));
+});
+test('historian technical interpretation requires both observations and comparison',async()=>{
+ const t=setup({reply:'Барабан не соответствует заводскому листу.',facts:['comparison']});t.run("phase='investigation'");
+ await t.ask('Докажи, что механизм подменили','historian');assert.equal(t.run("notebook.statements.has('historian:evidence:comparison')"),false);
+ t.run("catFound=true;enterRoom('workshop');readTechnical('E05');readTechnical('E06');compareMechanism();enterRoom('corridor')");
+ await t.ask('Вот результаты сравнения, что скажешь?','historian');
+ assert.equal(t.run("notebook.statements.has('historian:evidence:comparison')"),true);
+ assert.equal(t.run('notebook.statements.has(guardConfessionKey)'),false);
 });

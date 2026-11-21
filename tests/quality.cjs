@@ -22,7 +22,7 @@ function boot(store=new Map(), denied=false){
  const document={activeElement:new Element(),getElementById:id=>elements[id]??=new Element(),createElement:()=>new Element(),createTextNode:text=>({textContent:text})};
  const storage={getItem(key){if(denied)throw Error('denied');return store.get(key)??null;},setItem(key,value){if(denied)throw Error('denied');store.set(key,value);},removeItem(key){if(denied)throw Error('denied');store.delete(key);}};
  const context=vm.createContext({document,localStorage:storage});
- for(const file of ['restorer-policy.js','director-policy.js','game.js','report.js','questions.js','transfer.js'])vm.runInContext(fs.readFileSync(path.join(root,file),'utf8'),context,{filename:file});
+ for(const file of ['restorer-policy.js','director-policy.js','guard-policy.js','historian-policy.js','game.js','report.js','questions.js','transfer.js'])vm.runInContext(fs.readFileSync(path.join(root,file),'utf8'),context,{filename:file});
  const run=code=>vm.runInContext(code,context);
  const click=label=>{const button=elements.actions.children.find(el=>el.textContent===label);assert.ok(button,'Missing action: '+label);button.handlers.click();};
  return {elements,run,click,store};

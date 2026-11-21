@@ -25,9 +25,11 @@ function getLunaStatus(){
  if(typeof location==='undefined'||location.protocol==='file:')return Promise.resolve({enabled:false});
  return lunaStatusPromise??=fetch('/api/status',{cache:'no-store'}).then(r=>r.ok?r.json():{enabled:false}).catch(()=>({enabled:false}));
 }
-const lunaConversations={restorer:{turns:[],phase:null},director:{turns:[],phase:null}};
-function lunaPolicy(person){return person==='director'?directorPolicy:restorerPolicy;}
+const lunaConversations={restorer:{turns:[],phase:null},director:{turns:[],phase:null},guard:{turns:[],phase:null},historian:{turns:[],phase:null}};
+function lunaPolicy(person){return {restorer:restorerPolicy,director:directorPolicy,guard:guardPolicy,historian:historianPolicy}[person];}
 function lunaGameState(person='restorer'){
+ if(person==='guard')return {phase,catKnown:notebook.statements.has('guard:evidence:cat-found'),exitVideo:hasEvidence('E11'),exitAdmitted:notebook.statements.has('guard:evidence:exit'),shieldRead:hasEvidence('E12'),batteryRead:hasEvidence('E13'),noticeRead:hasEvidence('E14'),batteryCompared:returnChecked(),outageAdmitted:notebook.statements.has(guardConfessionKey)};
+ if(person==='historian')return {phase,catKnown:notebook.statements.has('historian:evidence:cat-found'),factoryRead:hasEvidence('E05'),mechanismRead:hasEvidence('E06'),compared:substitutionChecked(),suspicionRevealed:notebook.statements.has('historian:evidence:suspicion')};
  if(person==='director')return {phase,catKnown:notebook.statements.has('director:evidence:cat-found'),earlyChecked:earlyRemovalChecked(),earlyAdmitted:notebook.statements.has('director:evidence:early-removal'),actRead:hasEvidence('E07'),warningRead:hasEvidence('E08'),documentsCompared:directorWarned(),mechanismCompared:substitutionChecked(),awarenessAdmitted:notebook.statements.has('director:evidence:awareness'),accessRead:hasEvidence('E09')};
  return {phase,catFound,factoryRead:hasEvidence('E05'),mechanismRead:hasEvidence('E06'),compared:substitutionChecked(),motiveRevealed:notebook.statements.has('restorer:evidence:comparison'),warningRead:hasEvidence('E08')};
 }
@@ -67,7 +69,7 @@ function matchQuestion(text,offers){
  return matches.filter(o=>o.score>=matches[0].score-2).slice(0,3);
 }
 function renderQuestionInput(person,offers){
- const supported=person==='restorer'||person==='director';const name=person==='director'?'Ланской':'Белов';const instrumental=person==='director'?'Ланским':'Беловым';
+ const supported=Object.hasOwn(lunaConversations,person);const name={restorer:'Белов',director:'Ланской',guard:'Павел',historian:'Вера'}[person];const instrumental={restorer:'Беловым',director:'Ланским',guard:'Павлом',historian:'Верой'}[person];
  const box=$('question-box');box.replaceChildren();box.hidden=false;
  const label=document.createElement('label');label.htmlFor='free-question';label.textContent='Спросить своими словами';
  const form=document.createElement('form');form.className='question-form';

@@ -2,7 +2,7 @@ const http=require('node:http');
 const fs=require('node:fs/promises');
 const path=require('node:path');
 const ROOT=__dirname;
-const policies={restorer:require('./restorer-policy.js'),director:require('./director-policy.js')};
+const policies={restorer:require('./restorer-policy.js'),director:require('./director-policy.js'),guard:require('./guard-policy.js'),historian:require('./historian-policy.js')};
 function createGameServer({apiKey=process.env.DES_DETECTIVE_OPENAI_API_KEY,fetchImpl=fetch}={}){
  let inFlight=0,lastRequest=0;
  const json=(res,status,data)=>{res.writeHead(status,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'});res.end(JSON.stringify(data));};
@@ -12,7 +12,7 @@ function createGameServer({apiKey=process.env.DES_DETECTIVE_OPENAI_API_KEY,fetch
   const address=req.socket.localPort,origin=`http://127.0.0.1:${address}`;
   if(req.headers.host!==`127.0.0.1:${address}`){json(res,403,{error:'host'});return;}
   let pathname;try{pathname=decodeURIComponent(new URL(req.url,origin).pathname);}catch{json(res,400,{error:'path'});return;}
-  if(req.method==='GET'&&pathname==='/api/status'){json(res,200,{enabled:Boolean(apiKey),model:'gpt-6-luna',characters:['restorer','director']});return;}
+  if(req.method==='GET'&&pathname==='/api/status'){json(res,200,{enabled:Boolean(apiKey),model:'gpt-6-luna',characters:Object.keys(policies)});return;}
   if(pathname==='/api/dialogue'){
    if(req.method!=='POST'||req.headers.origin!==origin||req.headers['x-des-request']!=='1'){json(res,403,{error:'origin'});return;}
    if(!apiKey){json(res,503,{error:'key_missing'});return;}
@@ -45,7 +45,7 @@ function createGameServer({apiKey=process.env.DES_DETECTIVE_OPENAI_API_KEY,fetch
   }
   if(req.method!=='GET'&&req.method!=='HEAD'){json(res,405,{error:'method'});return;}
   const relative=pathname==='/'?'index.html':pathname.slice(1);
-  const publicFile=['index.html','style.css','game.js','report.js','questions.js','transfer.js','restorer-policy.js','director-policy.js'].includes(relative);
+  const publicFile=['index.html','style.css','game.js','report.js','questions.js','transfer.js','restorer-policy.js','director-policy.js','guard-policy.js','historian-policy.js'].includes(relative);
   const publicImage=/^assets\/[a-zA-Z0-9_/-]+\.png$/.test(relative);
   if(!publicFile&&!publicImage){json(res,404,{error:'not_found'});return;}
   const full=path.resolve(ROOT,relative);
@@ -53,5 +53,5 @@ function createGameServer({apiKey=process.env.DES_DETECTIVE_OPENAI_API_KEY,fetch
   try{const data=await fs.readFile(full);const type=relative.endsWith('.png')?'image/png':relative.endsWith('.css')?'text/css; charset=utf-8':relative.endsWith('.js')?'text/javascript; charset=utf-8':'text/html; charset=utf-8';res.writeHead(200,{'Content-Type':type,'Cache-Control':'no-store'});res.end(req.method==='HEAD'?undefined:data);}catch{json(res,404,{error:'not_found'});}
  });
 }
-if(require.main===module){const server=createGameServer();server.on('error',()=>{console.error('Не удалось запустить сервер. Возможно, порт 4317 занят.');process.exitCode=1;});server.listen(4317,'127.0.0.1',()=>{console.log('DES Detective: http://127.0.0.1:4317');console.log(process.env.DES_DETECTIVE_OPENAI_API_KEY?'Luna: ключ задан; разговоры с Беловым и Ланским готовы к проверке.':'Luna: ключ не задан; доступен локальный режим.');});}
+if(require.main===module){const server=createGameServer();server.on('error',()=>{console.error('Не удалось запустить сервер. Возможно, порт 4317 занят.');process.exitCode=1;});server.listen(4317,'127.0.0.1',()=>{console.log('DES Detective: http://127.0.0.1:4317');console.log(process.env.DES_DETECTIVE_OPENAI_API_KEY?'Luna: ключ задан; разговоры со всеми четырьмя персонажами готовы к проверке.':'Luna: ключ не задан; доступен локальный режим.');});}
 module.exports={createGameServer};

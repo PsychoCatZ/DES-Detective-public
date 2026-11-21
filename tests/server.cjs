@@ -64,3 +64,24 @@ test('director disclosure branches remain independent',()=>{
  assert.ok(!policy.factsFor(checked).some(f=>f.id==='early'));
  assert.equal(policy.validState({...state,awarenessAdmitted:true}),false);
 });
+test('guard exits, battery and outage are distinct disclosure stages',()=>{
+ const p=require('../guard-policy.js');const state={phase:'investigation',catKnown:false,exitVideo:false,exitAdmitted:false,shieldRead:false,batteryRead:false,noticeRead:false,batteryCompared:false,outageAdmitted:false};
+ assert.deepEqual(p.factsFor({...state,phase:'before'}),[]);
+ assert.deepEqual(p.factsFor(state).map(f=>f.id),['post']);
+ assert.deepEqual(p.factsFor({...state,exitVideo:true}).map(f=>f.id),['exit']);
+ assert.ok(!JSON.stringify(p.contextFor(state).allowedFacts).includes('домой'));
+ const battery={...state,batteryRead:true,noticeRead:true,batteryCompared:true};
+ assert.ok(!p.factsFor(battery).some(f=>f.id==='outage'));
+ assert.ok(!p.factsFor({...battery,exitVideo:true}).some(f=>f.id==='outage'));
+ assert.ok(p.factsFor({...battery,exitVideo:true,shieldRead:true}).some(f=>f.id==='outage'));
+ assert.equal(p.validState({...state,outageAdmitted:true}),false);
+});
+test('historian interprets observed technical facts without other characters secrets',()=>{
+ const p=require('../historian-policy.js');const state={phase:'investigation',catKnown:false,factoryRead:false,mechanismRead:false,compared:false,suspicionRevealed:false};
+ assert.deepEqual(p.factsFor({...state,phase:'before'}),[]);
+ assert.deepEqual(p.factsFor(state).map(f=>f.id),['suspicion','invitation']);
+ assert.ok(!p.factsFor({...state,factoryRead:true}).some(f=>f.id==='comparison'));
+ assert.ok(p.factsFor({...state,factoryRead:true,mechanismRead:true,compared:true}).some(f=>f.id==='comparison'));
+ assert.ok(!JSON.stringify(p.contextFor(state)).includes('самовольно забрал'));
+ assert.equal(p.validState({...state,compared:true}),false);
+});
