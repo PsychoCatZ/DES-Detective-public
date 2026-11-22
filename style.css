@@ -9,3 +9,40 @@
 #question-box{margin-top:22px;padding-top:18px;border-top:1px solid #776348}.question-form{display:flex;gap:10px;margin-top:8px}.question-form input{min-width:0;flex:1;background:#0b1720;color:var(--cream);border:1px solid #a88b58;border-radius:5px;padding:12px;font:17px Georgia}.question-form input:focus-visible{outline:2px solid var(--gold);outline-offset:3px}.question-suggestions{display:flex;flex-wrap:wrap;gap:8px}@media(max-width:650px){.question-form{flex-direction:column}}
 #save-transfer{display:block;width:100%;margin-top:16px;background:#0b1720;color:var(--cream);padding:12px;border:1px solid #a88b58;font:13px/1.5 monospace;resize:vertical}
 .dialogue-history{margin-top:16px;border-top:1px solid #776348;padding-top:10px;font:15px/1.6 Georgia}.dialogue-history summary{cursor:pointer;color:var(--gold)}.dialogue-history p{white-space:pre-wrap;padding:8px 0;border-bottom:1px solid #77634844}
+
+/* A room keeps its 16:9 coordinates; controls wrap below it. */
+.footer-actions{min-width:0;max-width:100%;flex-shrink:1}
+#actions button,.footer-actions button,#passages button{max-width:100%;overflow-wrap:anywhere}
+#panel-content{min-width:0;overflow-wrap:anywhere}
+dialog{max-height:min(85dvh,calc(var(--visible-height,100dvh) - 24px));overscroll-behavior:contain}
+html:has(dialog[open]){overflow:hidden;overscroll-behavior:none}
+/* Width alone misses phones in landscape. The form stays outside the scrolling text. */
+@media(max-width:650px),(max-height:500px){
+ dialog[open]{display:flex;flex-direction:column;position:fixed;top:calc(var(--visible-top,0px) + 8px);bottom:auto;margin:0 auto;max-height:calc(var(--visible-height,100dvh) - 16px);padding:16px;width:min(700px,calc(100% - 16px));overflow:hidden}
+ dialog:has(.evidence-photo),dialog:has(.report-question){width:min(1000px,calc(100% - 16px))}
+ #panel-content{overflow:auto;overscroll-behavior:contain;min-height:0;padding-right:4px;scrollbar-gutter:stable;touch-action:pan-y}
+ .close{z-index:2;right:8px;top:8px;min-width:44px;min-height:44px;background:#152631}
+ #panel-kind{margin-right:44px}
+ #panel-title{font-size:24px;margin-right:44px}
+ #panel-body{font-size:17px}
+ #question-dock{flex:none;padding-top:8px;margin-top:8px;border-top:1px solid #776348;background:#12212b}
+ #question-dock>label{font-size:14px}
+ #question-dock .question-form{flex-direction:row;margin-top:4px;gap:8px}
+ .question-form input{font-size:16px;width:0;min-height:44px;padding:10px}
+ .question-form button{min-height:44px;padding:10px 12px;flex:none}
+ #actions button,.notebook-tabs button,#passages button,.footer-actions button{min-height:44px}
+ .footer-actions{flex-direction:row;max-width:100%;justify-content:flex-start;margin-left:0}
+ footer{align-items:flex-start;padding:12px;gap:12px}
+ footer p{flex-basis:100%}
+ #passages{padding:8px 12px}
+ .technical-sheet{padding:14px;font-size:17px!important}
+ .report-question{padding:10px;min-width:0}
+ .report-question select{min-width:0;font-size:16px}
+}
+@media(orientation:landscape) and (max-height:500px){
+ header{min-height:48px;padding:8px 12px;flex-wrap:wrap}
+ h1{font-size:18px;order:0;width:auto}
+ #room-name{font-size:15px}
+ .brand{font-size:18px}
+ .show-hotspots .hotspot::after{font-size:12px;padding:3px}
+}

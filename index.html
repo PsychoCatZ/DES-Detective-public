@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="ru">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DES Detective — Семь минут темноты</title><link rel="stylesheet" href="style.css"><script src="restorer-policy.js" defer></script><script src="director-policy.js" defer></script><script src="guard-policy.js" defer></script><script src="historian-policy.js" defer></script><script src="game.js" defer></script><script src="report.js" defer></script><script src="questions.js" defer></script><script src="transfer.js" defer></script></head>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,interactive-widget=resizes-content"><title>DES Detective — Семь минут темноты</title><link rel="stylesheet" href="style.css"><script src="restorer-policy.js" defer></script><script src="director-policy.js" defer></script><script src="guard-policy.js" defer></script><script src="historian-policy.js" defer></script><script src="game.js" defer></script><script src="report.js" defer></script><script src="questions.js" defer></script><script src="transfer.js" defer></script></head>
 <body>
 <main>
 <header><span class="brand">DES DETECTIVE</span><h1>Семь минут темноты</h1><span id="room-name"></span></header>
@@ -10,5 +10,41 @@
 <p id="save-status" class="note" role="status"></p>
 <p class="note" id="chapter">До происшествия · нажимай на предметы и персонажей · Tab — выбор объекта</p>
 </main>
-<dialog id="panel" aria-labelledby="panel-title"><button class="close" aria-label="Закрыть окно">×</button><p class="eyebrow" id="panel-kind"></p><h2 id="panel-title"></h2><div id="panel-body" aria-live="polite"></div><div id="question-box" hidden></div><div id="actions"></div></dialog>
+<dialog id="panel" aria-labelledby="panel-title"><button class="close" aria-label="Закрыть окно">×</button><div id="panel-content"><p class="eyebrow" id="panel-kind"></p><h2 id="panel-title"></h2><div id="panel-body" aria-live="polite"></div><div id="question-box" hidden></div><div id="actions"></div></div><div id="question-dock" hidden></div></dialog>
+<script>
+// Presentation only: keep the existing form nodes and handlers across viewport changes.
+(() => {
+ const panel = document.getElementById('panel');
+ const content = document.getElementById('panel-content');
+ const box = document.getElementById('question-box');
+ const dock = document.getElementById('question-dock');
+ const compact = matchMedia('(max-width: 650px), (max-height: 500px)');
+ function arrangeForm() {
+  if (box.hidden) { dock.replaceChildren(); dock.hidden = true; return; }
+  if (compact.matches) {
+   const form = box.querySelector('.question-form');
+   if (form) dock.replaceChildren(box.querySelector('label[for="free-question"]'), form);
+   dock.hidden = !dock.querySelector('form');
+  } else {
+   if (dock.firstChild) box.prepend(...dock.childNodes);
+   dock.hidden = true;
+  }
+ }
+ new MutationObserver(records => {
+  // A new panel/answer starts at its beginning; rotation alone does not change its scroll.
+  if (records.some(record => ['panel-body', 'panel-title', 'panel-kind'].includes(record.target.id))) content.scrollTop = 0;
+  arrangeForm();
+ }).observe(content, {childList: true, subtree: true, attributes: true, attributeFilter: ['hidden']});
+ compact.addEventListener('change', arrangeForm);
+ function fitViewport() {
+  const view = window.visualViewport;
+  panel.style.setProperty('--visible-height', (view ? view.height : innerHeight) + 'px');
+  panel.style.setProperty('--visible-top', (view ? view.offsetTop : 0) + 'px');
+ }
+ window.addEventListener('resize', fitViewport);
+ window.visualViewport?.addEventListener('resize', fitViewport);
+ window.visualViewport?.addEventListener('scroll', fitViewport);
+ fitViewport();
+})();
+</script>
 </body></html>
