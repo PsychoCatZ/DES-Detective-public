@@ -4,13 +4,13 @@
 <body>
 <main>
 <header><span class="brand">DES DETECTIVE</span><h1>Семь минут темноты</h1><span id="room-name"></span></header>
-<div class="stage" id="stage"><img id="scene" alt=""><div id="hotspots"></div><div id="hover" aria-hidden="true"></div><div id="blackout" hidden><p>19:00</p><h2>Свет погас.</h2><p>В коридоре тускло светятся эвакуационные указатели.<br>В зале слышны голоса и чьи-то осторожные шаги.</p><button id="restore-light">Семь минут спустя →</button></div></div>
+<div class="stage" id="stage"><img id="scene" alt=""><div id="face-expression" hidden aria-hidden="true"></div><div id="hotspots"></div><div id="hover" aria-hidden="true"></div><div id="blackout" hidden><p>19:00</p><h2>Свет погас.</h2><p>В коридоре тускло светятся эвакуационные указатели.<br>В зале слышны голоса и чьи-то осторожные шаги.</p><button id="restore-light">Семь минут спустя →</button></div></div>
 <nav id="passages" aria-label="Дополнительные проходы"></nav>
 <footer><p id="status" role="status">До показа ещё есть время. Осмотритесь в музее.</p><div class="footer-actions"><button id="incident">К началу показа →</button><button id="report" hidden>Заключение</button><button id="notebook">Блокнот · 0</button><button id="help">Показать объекты</button><button id="transfer">Перенос сохранения</button><button id="new-game">Новая игра</button></div></footer>
 <p id="save-status" class="note" role="status"></p>
 <p class="note" id="chapter">До происшествия · нажимай на предметы и персонажей · Tab — выбор объекта</p>
 </main>
-<dialog id="panel" aria-labelledby="panel-title"><button class="close" aria-label="Закрыть окно">×</button><div id="panel-content"><p class="eyebrow" id="panel-kind"></p><h2 id="panel-title"></h2><div id="panel-body" aria-live="polite"></div><div id="question-box" hidden></div><div id="actions"></div></div><div id="question-dock" hidden></div></dialog>
+<dialog id="panel" aria-labelledby="panel-title"><button class="close" aria-label="Закрыть окно">×</button><div id="panel-content"><div class="speaker-line"><div id="speaker-portrait" role="img" hidden></div><div class="speaker-copy"><p class="eyebrow" id="panel-kind"></p><h2 id="panel-title"></h2><div id="panel-body" aria-live="polite"></div></div></div><div id="question-box" hidden></div><div id="actions"></div></div><div id="question-dock" hidden></div></dialog>
 <script>
 // Presentation only: keep the existing form nodes and handlers across viewport changes.
 (() => {
@@ -45,6 +45,90 @@
  window.visualViewport?.addEventListener('resize', fitViewport);
  window.visualViewport?.addEventListener('scroll', fitViewport);
  fitViewport();
+})();
+</script>
+<script id="scene-expressions">
+// Presentation only: four actors, six reactions; no game facts or paid calls.
+(() => {
+ const panel = document.getElementById('panel');
+ const title = document.getElementById('panel-title');
+ const body = document.getElementById('panel-body');
+ const scene = document.getElementById('scene');
+ const face = document.getElementById('face-expression');
+ const portrait = document.getElementById('speaker-portrait');
+ const names = {'Михаил Белов':'restorer','Виктор Ланской':'director','Павел Серов':'guard','Вера Орлова':'historian'};
+ const labels = {neutral:'спокойное',friendly:'доброжелательное',skeptical:'скептическое',surprised:'удивлённое',irritated:'раздражённое',thoughtful:'задумчивое'};
+ const actors = {
+  restorer:{prefix:'belov',scene:/\/workshop(?:-found)?\.png$/,mask:'78.6% 20%',radius:'3.6% 7.4%'},
+  director:{prefix:'director',scene:/\/hall(?:-empty)?\.png$/,mask:'70.8% 23%',radius:'3.9% 8.1%'},
+  guard:{prefix:'guard',scene:/\/security-office\.png$/,mask:'81% 18.8%',radius:'3.3% 7%'},
+  historian:{prefix:'historian',scene:/\/service-corridor\.png$/,mask:'74.2% 20.2%',radius:'4% 8.2%'}
+ };
+ const images = new Map();
+ let question = '', emotion = 'neutral', speaker = title.textContent;
+ function activeActor() {
+  const id = names[title.textContent];
+  return actors[id]?.scene.test(scene.src) ? id : null;
+ }
+ function loadActor(id) {
+  if (images.has(id)) return;
+  const states = new Map(); images.set(id,states);
+  for (const state of Object.keys(labels).filter(state => state !== 'neutral')) {
+   const image = new Image(); states.set(state,image);
+   image.onload = renderFace;
+   image.src = `assets/expressions/${actors[id].prefix}-${state}-v1.png`;
+  }
+ }
+ function renderFace() {
+  const id = activeActor(), config = actors[id];
+  const image = images.get(id)?.get(emotion);
+  face.hidden = !id || emotion === 'neutral' || !image?.complete || !image.naturalWidth;
+  if (!face.hidden) {
+   face.style.backgroundImage = `url("${image.src}")`;
+   face.style.maskImage = `radial-gradient(ellipse ${config.radius} at ${config.mask},#000 70%,transparent 100%)`;
+  }
+ }
+ function chooseExpression(question,answer) {
+  const q = question.toLocaleLowerCase('ru').replace(/ё/g,'е');
+  const a = answer.toLocaleLowerCase('ru').replace(/ё/g,'е');
+  // These are acting cues, never proof that an accusation or claimed event is true.
+  if (/врешь|врете|пизд|лжешь|лжете|украл|стыр|спер|тюрьм|посажу|заткни|сволоч|идиот/.test(q)
+   || /без угроз|угрозы оставьте|не собираюсь признавать|не смешно|не надо мне угрожать/.test(a)) return 'irritated';
+  if (/не ожидал|не ожидала|неожиданно|ничего себе|вот это сюрприз/.test(a) || /сюрприз|угадай|представляешь|ничего себе/.test(q)) return 'surprised';
+  if (/это не доказательство|не стал бы утверждать|не стала бы утверждать|не верю|голословн|не подтвержден/.test(a)
+   || /банда|предсказ|гадал|телепат|призрак|инопланет|магия|мне кажется|по-моему|не верю/.test(q)) return 'skeptical';
+  if (/спасибо|приятно слышать|рад помочь|рада помочь|рад, что|рада, что|ха-ха/.test(a)
+   || /спасибо|благодар|молодец|отличная работа|красивые усы|хорошая шутка/.test(q)) return 'friendly';
+  if (/нужно проверить|надо проверить|давайте сверим|нужно разобраться|независимой проверк/.test(a)
+   || /механизм|барабан|заводск|документ|предупрежден|почему|зачем|сопостав|паз|детал/.test(q)) return 'thoughtful';
+  return 'neutral';
+ }
+ function react(answer = '') {
+  // All dialogue windows share left alignment and the same portrait layout.
+  panel.dataset.actor = names[title.textContent] || '';
+  const id = activeActor();
+  portrait.hidden = !id;
+  if (!id) { face.hidden = true; question = ''; return; }
+  loadActor(id);
+  portrait.style.backgroundImage = `url("assets/expressions/${actors[id].prefix}-portraits-v1.png")`;
+  emotion = chooseExpression(question,answer);
+  face.dataset.expression = portrait.dataset.expression = emotion;
+  portrait.setAttribute('aria-label',`${title.textContent} — ${labels[emotion]} выражение лица`);
+  renderFace();
+ }
+ panel.addEventListener('submit', event => {
+  if (!event.target.matches('.question-form')) return;
+  question = event.target.querySelector('input').value; react();
+ },true);
+ panel.addEventListener('click', event => {
+  const button = event.target.closest('#actions button,.question-suggestions button');
+  if (!button) return;
+  question = button.textContent; react();
+ },true);
+ new MutationObserver(() => react(body.textContent)).observe(body,{childList:true,subtree:true,characterData:true});
+ new MutationObserver(() => { if (speaker !== title.textContent) question = ''; speaker = title.textContent; react(body.textContent); }).observe(title,{childList:true});
+ new MutationObserver(() => { question = ''; face.hidden = true; }).observe(scene,{attributes:true,attributeFilter:['src']});
+ panel.addEventListener('close',() => { question = ''; });
 })();
 </script>
 </body></html>

@@ -46,3 +46,35 @@ html:has(dialog[open]){overflow:hidden;overscroll-behavior:none}
  .brand{font-size:18px}
  .show-hotspots .hotspot::after{font-size:12px;padding:3px}
 }
+
+/* A masked expression preserves the room, including the opened crate. */
+#face-expression{position:absolute;inset:0;pointer-events:none;z-index:1;background:url('assets/expressions/belov-irritated-v1.png') center/100% 100% no-repeat;mask-image:radial-gradient(ellipse 3.6% 7.4% at 78.6% 20%,#000 70%,transparent 100%)}
+/* The portrait carries the expression above the dimmed room. */
+.speaker-line,.speaker-copy{display:contents}
+#speaker-portrait{width:100%;aspect-ratio:1;border:1px solid var(--gold);border-radius:6px;background:url('assets/expressions/belov-portraits-v1.png') 0 0/300% 200% no-repeat}
+#speaker-portrait[data-expression="irritated"]{background-position:50% 100%}
+dialog[data-actor]:not([data-actor=""]){width:min(920px,94vw)}
+dialog[data-actor]:not([data-actor=""]) .speaker-line{display:grid;grid-template-columns:180px minmax(0,1fr);gap:22px;align-items:start}
+dialog[data-actor]:not([data-actor=""]) .speaker-copy{display:block;min-width:0}
+@media(max-width:650px),(max-height:500px){
+ dialog[data-actor]:not([data-actor=""]){width:min(920px,calc(100% - 16px));margin-left:auto;margin-right:auto}
+ dialog[data-actor]:not([data-actor=""]) .speaker-line{grid-template-columns:112px minmax(0,1fr);gap:14px}
+}
+@media(max-width:480px){
+ dialog[data-actor]:not([data-actor=""]) .speaker-line{grid-template-columns:88px minmax(0,1fr);gap:12px}
+ dialog[data-actor]:not([data-actor=""]) #panel-title{font-size:22px}
+}
+
+/* Six matching cells in the portrait sheet: three columns, two rows. */
+#speaker-portrait[data-expression="friendly"]{background-position:50% 0}
+#speaker-portrait[data-expression="skeptical"]{background-position:100% 0}
+#speaker-portrait[data-expression="surprised"]{background-position:0 100%}
+#speaker-portrait[data-expression="thoughtful"]{background-position:100% 100%}
+/* Anchor conversations near the left edge of the room, not the whole monitor. */
+@media(min-width:1000px){
+ dialog[data-actor]:not([data-actor=""]){width:min(920px,calc(min(100vw,1680px) * .62));margin-left:max(16px,calc((100vw - 1680px) / 2 + 16px));margin-right:auto}
+}
+@media(orientation:landscape) and (max-width:999px){
+ dialog[data-actor]:not([data-actor=""]){width:62vw;margin-left:8px;margin-right:auto}
+ dialog[data-actor]:not([data-actor=""]) .speaker-line{grid-template-columns:88px minmax(0,1fr);gap:12px}
+}
