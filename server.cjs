@@ -46,11 +46,11 @@ function createGameServer({apiKey=process.env.DES_DETECTIVE_OPENAI_API_KEY,fetch
   if(req.method!=='GET'&&req.method!=='HEAD'){json(res,405,{error:'method'});return;}
   const relative=pathname==='/'?'index.html':pathname.slice(1);
   const publicFile=['index.html','style.css','game.js','report.js','questions.js','transfer.js','restorer-policy.js','director-policy.js','guard-policy.js','historian-policy.js'].includes(relative);
-  const publicImage=/^assets\/[a-zA-Z0-9_/-]+\.png$/.test(relative);
+  const publicImage=/^assets\/[a-zA-Z0-9_/-]+\.png$/.test(relative)||/^assets\/optimized\/(?:scenes|expressions|evidence)\/[a-zA-Z0-9_-]+\.[a-f0-9]{12}\.webp$/.test(relative);
   if(!publicFile&&!publicImage){json(res,404,{error:'not_found'});return;}
   const full=path.resolve(ROOT,relative);
   if(!full.startsWith(ROOT+path.sep)){json(res,404,{error:'not_found'});return;}
-  try{const data=await fs.readFile(full);const type=relative.endsWith('.png')?'image/png':relative.endsWith('.css')?'text/css; charset=utf-8':relative.endsWith('.js')?'text/javascript; charset=utf-8':'text/html; charset=utf-8';res.writeHead(200,{'Content-Type':type,'Cache-Control':'no-store'});res.end(req.method==='HEAD'?undefined:data);}catch{json(res,404,{error:'not_found'});}
+  try{const data=await fs.readFile(full);const type=relative.endsWith('.webp')?'image/webp':relative.endsWith('.png')?'image/png':relative.endsWith('.css')?'text/css; charset=utf-8':relative.endsWith('.js')?'text/javascript; charset=utf-8':'text/html; charset=utf-8';res.writeHead(200,{'Content-Type':type,'Cache-Control':relative.endsWith('.webp')?'public, max-age=31536000, immutable':'no-store'});res.end(req.method==='HEAD'?undefined:data);}catch{json(res,404,{error:'not_found'});}
  });
 }
 if(require.main===module){const server=createGameServer();server.on('error',()=>{console.error('Не удалось запустить сервер. Возможно, порт 4317 занят.');process.exitCode=1;});server.listen(4317,'127.0.0.1',()=>{console.log('DES Detective: http://127.0.0.1:4317');console.log(process.env.DES_DETECTIVE_OPENAI_API_KEY?'Luna: ключ задан; разговоры со всеми четырьмя персонажами готовы к проверке.':'Luna: ключ не задан; доступен локальный режим.');});}

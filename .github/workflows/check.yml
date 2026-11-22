@@ -11,4 +11,4 @@ jobs:
         with:
           node-version: '24'
       - run: node tests/quality.cjs
-      - run: node --test tests/server.cjs tests/client-luna.cjs
+      - run: node --test tests/server.cjs tests/client-luna.cjs tests/static-images.cjs

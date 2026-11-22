@@ -60,7 +60,7 @@ const earlyRemovalChecked=()=>notebook.observations.has('comparison:E02:blackout
 function showPreparationPhoto(){
  if(phase!=='investigation'||(currentRoom!=='hall'&&!hasEvidence('E02')))return;
  openPanel('Снимок подготовки зала','Музейный фотоаппарат','Исходный кадр, сделанный перед показом. Рассмотри витрину и сведения о времени съёмки.');
- const img=document.createElement('img');img.className='evidence-photo';img.src='assets/evidence/preparation-photo.png';img.alt='Снимок витрины: пустая бордовая подставка и отражение настенных часов.';$('panel-body').append(img);
+ const img=document.createElement('img');img.className='evidence-photo';img.src=typeof desImageUrl==='function'?desImageUrl('assets/evidence/preparation-photo.png'):'assets/evidence/preparation-photo.png';img.alt='Снимок витрины: пустая бордовая подставка и отражение настенных часов.';$('panel-body').append(img);
  addAction('Рассмотреть подставку и время',()=>readTechnical('E02'));
  addAction('Продолжить осмотр',()=>$('panel').close());
 }
@@ -115,7 +115,7 @@ function readTechnical(id){
  openPanel(entry.title,id==='E06'?'Осмотр · механизм':'Документ',entry.text);
  $('panel-body').classList.add('technical-sheet');
  if(id==='E02'){
-  const img=document.createElement('img');img.className='evidence-photo';img.src='assets/evidence/preparation-photo.png';img.alt='Пустая подставка в витрине и отражение часов на снимке подготовки.';$('panel-body').append(img);
+  const img=document.createElement('img');img.className='evidence-photo';img.src=typeof desImageUrl==='function'?desImageUrl('assets/evidence/preparation-photo.png'):'assets/evidence/preparation-photo.png';img.alt='Пустая подставка в витрине и отражение часов на снимке подготовки.';$('panel-body').append(img);
   addAction('Сопоставить снимок и время отключения',compareRemovalTime);
  }
  if(['E05','E06'].includes(id)&&hasEvidence('E05')&&hasEvidence('E06'))addAction('Сопоставить лист и механизм',compareMechanism);
@@ -349,7 +349,7 @@ function talk(id){
  if(typeof renderQuestionInput==='function')renderQuestionInput(id,offers);
  addAction('Завершить разговор',()=>$('panel').close());
 }
-function enterRoom(id){currentRoom=phase==='blackout'?'hall':id;id=currentRoom;const room=rooms[id];$('room-name').textContent=room.name;$('scene').src=id==='hall'&&phase==='investigation'?'assets/scenes/hall-empty.png':id==='workshop'&&catFound?'assets/scenes/workshop-found.png':room.image;$('scene').alt=id==='hall'&&phase==='investigation'?'Выставочный зал после отключения: центральная витрина пуста, директор стоит справа.':id==='workshop'&&catFound?'Мастерская: в открытом ящике слева найден механический кот, Белов у верстака справа.':room.alt;$('hotspots').replaceChildren();$('hover').style.display='none';$('status').textContent=phase==='blackout'?'19:00 · Основное освещение отключено.':phase==='investigation'?'После отключения · Осмотри помещения и расспроси сотрудников.':id==='hall'?'Кот ещё в витрине. До показа есть время осмотреть музей.':({workshop:'На верстаке горит лампа. Реставратор ненадолго отложил работу.',security:'На посту дежурит Павел. На столе открыт журнал.',corridor:'Вера ждёт в коридоре. Рядом двери мастерской и поста охраны.'}[id]);
+function enterRoom(id){currentRoom=phase==='blackout'?'hall':id;id=currentRoom;const room=rooms[id];$('room-name').textContent=room.name;const image=id==='hall'&&phase==='investigation'?'assets/scenes/hall-empty.png':id==='workshop'&&catFound?'assets/scenes/workshop-found.png':room.image;$('scene').setAttribute('data-scene-source',image);$('scene').src=typeof desImageUrl==='function'?desImageUrl(image):image;$('scene').alt=id==='hall'&&phase==='investigation'?'Выставочный зал после отключения: центральная витрина пуста, директор стоит справа.':id==='workshop'&&catFound?'Мастерская: в открытом ящике слева найден механический кот, Белов у верстака справа.':room.alt;$('hotspots').replaceChildren();$('hover').style.display='none';$('status').textContent=phase==='blackout'?'19:00 · Основное освещение отключено.':phase==='investigation'?'После отключения · Осмотри помещения и расспроси сотрудников.':id==='hall'?'Кот ещё в витрине. До показа есть время осмотреть музей.':({workshop:'На верстаке горит лампа. Реставратор ненадолго отложил работу.',security:'На посту дежурит Павел. На столе открыт журнал.',corridor:'Вера ждёт в коридоре. Рядом двери мастерской и поста охраны.'}[id]);
  $('passages').replaceChildren();
  if(phase!=='blackout')for(const [label,target] of room.exits??[]){const b=document.createElement('button');b.textContent=label+' →';b.addEventListener('click',()=>{enterRoom(target);$('help').focus();});$('passages').append(b);}
  $('passages').hidden=!$('passages').children.length;

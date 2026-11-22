@@ -1,0 +1,85 @@
+[
+  {
+    "mode": "before",
+    "network": "1.6 Mbps download, 150 ms latency, CDP emulation; local HTTP",
+    "sceneReadyMs": 16070,
+    "dialogReadyMs": 72100,
+    "totalImageBytes": 16884749,
+    "images": [
+      {
+        "url": "/assets/scenes/workshop.png",
+        "bytes": 2668499,
+        "transfer": 2668799,
+        "ms": 13773.199999988079
+      },
+      {
+        "url": "/assets/expressions/belov-friendly-v1.png",
+        "bytes": 2366699,
+        "transfer": 2366999,
+        "ms": 71003.79999995232
+      },
+      {
+        "url": "/assets/expressions/belov-skeptical-v1.png",
+        "bytes": 2353754,
+        "transfer": 2354054,
+        "ms": 70879.39999997616
+      },
+      {
+        "url": "/assets/expressions/belov-surprised-v1.png",
+        "bytes": 2355266,
+        "transfer": 2355566,
+        "ms": 70910.5
+      },
+      {
+        "url": "/assets/expressions/belov-thoughtful-v1.png",
+        "bytes": 2327434,
+        "transfer": 2327734,
+        "ms": 70397.30000001192
+      },
+      {
+        "url": "/assets/expressions/belov-irritated-v1.png",
+        "bytes": 2345054,
+        "transfer": 2345354,
+        "ms": 70707.39999997616
+      },
+      {
+        "url": "/assets/expressions/belov-portraits-v1.png",
+        "bytes": 2468043,
+        "transfer": 2468343,
+        "ms": 71531.69999998808
+      }
+    ],
+    "repeat": null
+  },
+  {
+    "mode": "after",
+    "network": "1.6 Mbps download, 150 ms latency, CDP emulation; local HTTP",
+    "sceneReadyMs": 4668,
+    "dialogReadyMs": 8549,
+    "totalImageBytes": 741394,
+    "images": [
+      {
+        "url": "/assets/optimized/scenes/workshop.0a4bcfe995fe.webp",
+        "bytes": 430792,
+        "transfer": 431092,
+        "ms": 2360.7000000476837
+      },
+      {
+        "url": "/assets/optimized/expressions/belov-portraits-v1.8597c9ca4442.webp",
+        "bytes": 310602,
+        "transfer": 310902,
+        "ms": 1762.800000011921
+      }
+    ],
+    "repeat": {
+      "sceneReadyMs": 3031,
+      "images": [
+        {
+          "url": "/assets/optimized/scenes/workshop.0a4bcfe995fe.webp",
+          "transfer": 0,
+          "bytes": 430792
+        }
+      ]
+    }
+  }
+]

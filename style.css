@@ -48,10 +48,10 @@ html:has(dialog[open]){overflow:hidden;overscroll-behavior:none}
 }
 
 /* A masked expression preserves the room, including the opened crate. */
-#face-expression{position:absolute;inset:0;pointer-events:none;z-index:1;background:url('assets/expressions/belov-irritated-v1.png') center/100% 100% no-repeat;mask-image:radial-gradient(ellipse 3.6% 7.4% at 78.6% 20%,#000 70%,transparent 100%)}
+#face-expression{position:absolute;left:0;top:0;width:0;height:0;pointer-events:none;z-index:1;background-position:center;background-size:100% 100%;background-repeat:no-repeat}
 /* The portrait carries the expression above the dimmed room. */
 .speaker-line,.speaker-copy{display:contents}
-#speaker-portrait{width:100%;aspect-ratio:1;border:1px solid var(--gold);border-radius:6px;background:url('assets/expressions/belov-portraits-v1.png') 0 0/300% 200% no-repeat}
+#speaker-portrait{width:100%;aspect-ratio:1;border:1px solid var(--gold);border-radius:6px;background-color:#152631;background-position:0 0;background-size:300% 200%;background-repeat:no-repeat}
 #speaker-portrait[data-expression="irritated"]{background-position:50% 100%}
 dialog[data-actor]:not([data-actor=""]){width:min(920px,94vw)}
 dialog[data-actor]:not([data-actor=""]) .speaker-line{display:grid;grid-template-columns:180px minmax(0,1fr);gap:22px;align-items:start}

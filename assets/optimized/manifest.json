@@ -1,0 +1,359 @@
+{
+  "assets/scenes/hall-empty.png": {
+    "url": "assets/optimized/scenes/hall-empty.5a8adb6b392b.webp",
+    "width": 1672,
+    "height": 941,
+    "bytes": 372460,
+    "originalBytes": 2557918
+  },
+  "assets/scenes/hall.png": {
+    "url": "assets/optimized/scenes/hall.96d6e9edaacf.webp",
+    "width": 1672,
+    "height": 941,
+    "bytes": 429842,
+    "originalBytes": 2774125
+  },
+  "assets/scenes/security-office.png": {
+    "url": "assets/optimized/scenes/security-office.009446521e6d.webp",
+    "width": 1672,
+    "height": 941,
+    "bytes": 344870,
+    "originalBytes": 2415482
+  },
+  "assets/scenes/service-corridor.png": {
+    "url": "assets/optimized/scenes/service-corridor.0725c1ff0a79.webp",
+    "width": 1672,
+    "height": 941,
+    "bytes": 368886,
+    "originalBytes": 2574443
+  },
+  "assets/scenes/workshop-found.png": {
+    "url": "assets/optimized/scenes/workshop-found.b62b1a8caf97.webp",
+    "width": 1671,
+    "height": 941,
+    "bytes": 384994,
+    "originalBytes": 2530192
+  },
+  "assets/scenes/workshop.png": {
+    "url": "assets/optimized/scenes/workshop.0a4bcfe995fe.webp",
+    "width": 1672,
+    "height": 941,
+    "bytes": 430792,
+    "originalBytes": 2668499
+  },
+  "assets/expressions/belov-friendly-v1.png": {
+    "url": "assets/optimized/expressions/belov-friendly-v1.cae4df58f932.webp",
+    "width": 125,
+    "height": 144,
+    "bytes": 6376,
+    "originalBytes": 2366699,
+    "region": {
+      "left": 74.88038277511961,
+      "top": 12.327311370882041,
+      "width": 7.476076555023924,
+      "height": 15.3028692879915,
+      "mask": "radial-gradient(ellipse 48.1536% 48.356944444444444% at 49.753600000000006% 50.1388888888889%,#000 70%,transparent 100%)"
+    }
+  },
+  "assets/expressions/belov-irritated-v1.png": {
+    "url": "assets/optimized/expressions/belov-irritated-v1.0af9fc430939.webp",
+    "width": 125,
+    "height": 144,
+    "bytes": 6304,
+    "originalBytes": 2345054,
+    "region": {
+      "left": 74.88038277511961,
+      "top": 12.327311370882041,
+      "width": 7.476076555023924,
+      "height": 15.3028692879915,
+      "mask": "radial-gradient(ellipse 48.1536% 48.356944444444444% at 49.753600000000006% 50.1388888888889%,#000 70%,transparent 100%)"
+    }
+  },
+  "assets/expressions/belov-portraits-v1.png": {
+    "url": "assets/optimized/expressions/belov-portraits-v1.8597c9ca4442.webp",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 310602,
+    "originalBytes": 2468043
+  },
+  "assets/expressions/belov-skeptical-v1.png": {
+    "url": "assets/optimized/expressions/belov-skeptical-v1.7651edfdc479.webp",
+    "width": 125,
+    "height": 144,
+    "bytes": 6430,
+    "originalBytes": 2353754,
+    "region": {
+      "left": 74.88038277511961,
+      "top": 12.327311370882041,
+      "width": 7.476076555023924,
+      "height": 15.3028692879915,
+      "mask": "radial-gradient(ellipse 48.1536% 48.356944444444444% at 49.753600000000006% 50.1388888888889%,#000 70%,transparent 100%)"
+    }
+  },
+  "assets/expressions/belov-surprised-v1.png": {
+    "url": "assets/optimized/expressions/belov-surprised-v1.eba9baf3efd8.webp",
+    "width": 125,
+    "height": 144,
+    "bytes": 6430,
+    "originalBytes": 2355266,
+    "region": {
+      "left": 74.88038277511961,
+      "top": 12.327311370882041,
+      "width": 7.476076555023924,
+      "height": 15.3028692879915,
+      "mask": "radial-gradient(ellipse 48.1536% 48.356944444444444% at 49.753600000000006% 50.1388888888889%,#000 70%,transparent 100%)"
+    }
+  },
+  "assets/expressions/belov-thoughtful-v1.png": {
+    "url": "assets/optimized/expressions/belov-thoughtful-v1.5d23276d27a0.webp",
+    "width": 125,
+    "height": 144,
+    "bytes": 6364,
+    "originalBytes": 2327434,
+    "region": {
+      "left": 74.88038277511961,
+      "top": 12.327311370882041,
+      "width": 7.476076555023924,
+      "height": 15.3028692879915,
+      "mask": "radial-gradient(ellipse 48.1536% 48.356944444444444% at 49.753600000000006% 50.1388888888889%,#000 70%,transparent 100%)"
+    }
+  },
+  "assets/expressions/director-friendly-v1.png": {
+    "url": "assets/optimized/expressions/director-friendly-v1.f47100e193b2.webp",
+    "width": 135,
+    "height": 157,
+    "bytes": 7368,
+    "originalBytes": 2388845,
+    "region": {
+      "left": 66.74641148325358,
+      "top": 14.665249734325187,
+      "width": 8.074162679425838,
+      "height": 16.684378320935174,
+      "mask": "radial-gradient(ellipse 48.30222222222222% 48.5484076433121% at 50.20444444444433% 49.955414012738856%,#000 70%,transparent 100%)"
+    }
+  },
+  "assets/expressions/director-irritated-v1.png": {
+    "url": "assets/optimized/expressions/director-irritated-v1.42e8c1e84fa0.webp",
+    "width": 135,
+    "height": 157,
+    "bytes": 7284,
+    "originalBytes": 2398008,
+    "region": {
+      "left": 66.74641148325358,
+      "top": 14.665249734325187,
+      "width": 8.074162679425838,
+      "height": 16.684378320935174,
+      "mask": "radial-gradient(ellipse 48.30222222222222% 48.5484076433121% at 50.20444444444433% 49.955414012738856%,#000 70%,transparent 100%)"
+    }
+  },
+  "assets/expressions/director-portraits-v1.png": {
+    "url": "assets/optimized/expressions/director-portraits-v1.91666e58fe85.webp",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 394850,
+    "originalBytes": 2758063
+  },
+  "assets/expressions/director-skeptical-v1.png": {
+    "url": "assets/optimized/expressions/director-skeptical-v1.50aa28dc3027.webp",
+    "width": 135,
+    "height": 157,
+    "bytes": 7470,
+    "originalBytes": 2406735,
+    "region": {
+      "left": 66.74641148325358,
+      "top": 14.665249734325187,
+      "width": 8.074162679425838,
+      "height": 16.684378320935174,
+      "mask": "radial-gradient(ellipse 48.30222222222222% 48.5484076433121% at 50.20444444444433% 49.955414012738856%,#000 70%,transparent 100%)"
+    }
+  },
+  "assets/expressions/director-surprised-v1.png": {
+    "url": "assets/optimized/expressions/director-surprised-v1.69c2dbae73bd.webp",
+    "width": 135,
+    "height": 157,
+    "bytes": 8014,
+    "originalBytes": 2421907,
+    "region": {
+      "left": 66.74641148325358,
+      "top": 14.665249734325187,
+      "width": 8.074162679425838,
+      "height": 16.684378320935174,
+      "mask": "radial-gradient(ellipse 48.30222222222222% 48.5484076433121% at 50.20444444444433% 49.955414012738856%,#000 70%,transparent 100%)"
+    }
+  },
+  "assets/expressions/director-thoughtful-v1.png": {
+    "url": "assets/optimized/expressions/director-thoughtful-v1.8870923832a0.webp",
+    "width": 135,
+    "height": 157,
+    "bytes": 7354,
+    "originalBytes": 2390967,
+    "region": {
+      "left": 66.74641148325358,
+      "top": 14.665249734325187,
+      "width": 8.074162679425838,
+      "height": 16.684378320935174,
+      "mask": "radial-gradient(ellipse 48.30222222222222% 48.5484076433121% at 50.20444444444433% 49.955414012738856%,#000 70%,transparent 100%)"
+    }
+  },
+  "assets/expressions/guard-friendly-v1.png": {
+    "url": "assets/optimized/expressions/guard-friendly-v1.bfed55534feb.webp",
+    "width": 115,
+    "height": 136,
+    "bytes": 4508,
+    "originalBytes": 2147230,
+    "region": {
+      "left": 77.57177033492823,
+      "top": 11.583421891604676,
+      "width": 6.87799043062201,
+      "height": 14.452709883103083,
+      "mask": "radial-gradient(ellipse 47.97913043478261% 48.43382352941177% at 49.84347826086971% 49.93235294117646%,#000 70%,transparent 100%)"
+    }
+  },
+  "assets/expressions/guard-irritated-v1.png": {
+    "url": "assets/optimized/expressions/guard-irritated-v1.11f96f738a97.webp",
+    "width": 115,
+    "height": 136,
+    "bytes": 4352,
+    "originalBytes": 2147986,
+    "region": {
+      "left": 77.57177033492823,
+      "top": 11.583421891604676,
+      "width": 6.87799043062201,
+      "height": 14.452709883103083,
+      "mask": "radial-gradient(ellipse 47.97913043478261% 48.43382352941177% at 49.84347826086971% 49.93235294117646%,#000 70%,transparent 100%)"
+    }
+  },
+  "assets/expressions/guard-portraits-v1.png": {
+    "url": "assets/optimized/expressions/guard-portraits-v1.3c0200f19dce.webp",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 226772,
+    "originalBytes": 2295484
+  },
+  "assets/expressions/guard-skeptical-v1.png": {
+    "url": "assets/optimized/expressions/guard-skeptical-v1.e8166579a593.webp",
+    "width": 115,
+    "height": 136,
+    "bytes": 4714,
+    "originalBytes": 2223131,
+    "region": {
+      "left": 77.57177033492823,
+      "top": 11.583421891604676,
+      "width": 6.87799043062201,
+      "height": 14.452709883103083,
+      "mask": "radial-gradient(ellipse 47.97913043478261% 48.43382352941177% at 49.84347826086971% 49.93235294117646%,#000 70%,transparent 100%)"
+    }
+  },
+  "assets/expressions/guard-surprised-v1.png": {
+    "url": "assets/optimized/expressions/guard-surprised-v1.bcc79fde4c86.webp",
+    "width": 115,
+    "height": 136,
+    "bytes": 4564,
+    "originalBytes": 2168488,
+    "region": {
+      "left": 77.57177033492823,
+      "top": 11.583421891604676,
+      "width": 6.87799043062201,
+      "height": 14.452709883103083,
+      "mask": "radial-gradient(ellipse 47.97913043478261% 48.43382352941177% at 49.84347826086971% 49.93235294117646%,#000 70%,transparent 100%)"
+    }
+  },
+  "assets/expressions/guard-thoughtful-v1.png": {
+    "url": "assets/optimized/expressions/guard-thoughtful-v1.9629ad497b54.webp",
+    "width": 115,
+    "height": 136,
+    "bytes": 4488,
+    "originalBytes": 2142125,
+    "region": {
+      "left": 77.57177033492823,
+      "top": 11.583421891604676,
+      "width": 6.87799043062201,
+      "height": 14.452709883103083,
+      "mask": "radial-gradient(ellipse 47.97913043478261% 48.43382352941177% at 49.84347826086971% 49.93235294117646%,#000 70%,transparent 100%)"
+    }
+  },
+  "assets/expressions/historian-friendly-v1.png": {
+    "url": "assets/optimized/expressions/historian-friendly-v1.adafc3b4b07b.webp",
+    "width": 138,
+    "height": 160,
+    "bytes": 6354,
+    "originalBytes": 2169814,
+    "region": {
+      "left": 70.07779772591263,
+      "top": 11.689691817215728,
+      "width": 8.258527827648116,
+      "height": 17.003188097768334,
+      "mask": "radial-gradient(ellipse 48.434782608695656% 48.22625000000001% at 49.914492753623236% 50.05125000000001%,#000 70%,transparent 100%)"
+    }
+  },
+  "assets/expressions/historian-irritated-v1.png": {
+    "url": "assets/optimized/expressions/historian-irritated-v1.5aa3738bdc8d.webp",
+    "width": 139,
+    "height": 160,
+    "bytes": 6964,
+    "originalBytes": 2274203,
+    "region": {
+      "left": 70.03588516746412,
+      "top": 11.689691817215728,
+      "width": 8.313397129186603,
+      "height": 17.003188097768334,
+      "mask": "radial-gradient(ellipse 48.115107913669064% 48.22625000000001% at 50.08920863309354% 50.05125000000001%,#000 70%,transparent 100%)"
+    }
+  },
+  "assets/expressions/historian-portraits-v1.png": {
+    "url": "assets/optimized/expressions/historian-portraits-v1.4836eaf96086.webp",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 235656,
+    "originalBytes": 2276501
+  },
+  "assets/expressions/historian-skeptical-v1.png": {
+    "url": "assets/optimized/expressions/historian-skeptical-v1.219aa09f3679.webp",
+    "width": 139,
+    "height": 160,
+    "bytes": 6696,
+    "originalBytes": 2226451,
+    "region": {
+      "left": 70.03588516746412,
+      "top": 11.689691817215728,
+      "width": 8.313397129186603,
+      "height": 17.003188097768334,
+      "mask": "radial-gradient(ellipse 48.115107913669064% 48.22625000000001% at 50.08920863309354% 50.05125000000001%,#000 70%,transparent 100%)"
+    }
+  },
+  "assets/expressions/historian-surprised-v1.png": {
+    "url": "assets/optimized/expressions/historian-surprised-v1.552d80edc2f1.webp",
+    "width": 139,
+    "height": 160,
+    "bytes": 6484,
+    "originalBytes": 2176422,
+    "region": {
+      "left": 70.03588516746412,
+      "top": 11.689691817215728,
+      "width": 8.313397129186603,
+      "height": 17.003188097768334,
+      "mask": "radial-gradient(ellipse 48.115107913669064% 48.22625000000001% at 50.08920863309354% 50.05125000000001%,#000 70%,transparent 100%)"
+    }
+  },
+  "assets/expressions/historian-thoughtful-v1.png": {
+    "url": "assets/optimized/expressions/historian-thoughtful-v1.9b7e6a372cfd.webp",
+    "width": 139,
+    "height": 160,
+    "bytes": 6514,
+    "originalBytes": 2182058,
+    "region": {
+      "left": 70.03588516746412,
+      "top": 11.689691817215728,
+      "width": 8.313397129186603,
+      "height": 17.003188097768334,
+      "mask": "radial-gradient(ellipse 48.115107913669064% 48.22625000000001% at 50.08920863309354% 50.05125000000001%,#000 70%,transparent 100%)"
+    }
+  },
+  "assets/evidence/preparation-photo.png": {
+    "url": "assets/optimized/evidence/preparation-photo.8617c4fd9065.webp",
+    "width": 1672,
+    "height": 941,
+    "bytes": 323920,
+    "originalBytes": 2293784
+  }
+}
